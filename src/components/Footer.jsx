@@ -1,11 +1,19 @@
-import React, { Component } from 'react'
 
-export default class Footer extends Component {
-    render() {
+// import { Footer } from '@material-ui/core';
+
+// import { Footer } from 'react-bootstrap'
+
+
+
+const Footer = () =>  {
+
         return (
-            <div>
-                Hello from Footer
-            </div>
+            <footer className="footer mt-auto py-3 bg-light">
+                <div className="container">
+                    <span className="text-muted">Copyright © 2021 Zahnzentrumdrhijazi | Powered by Zahnzentrumdrhijazi</span>
+                </div>
+            </footer>
         )
-    }
 }
+
+export default Footer;

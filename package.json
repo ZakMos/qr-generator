@@ -1,18 +1,25 @@
 {
   "homepage": "http://schnelltest.zahnzentrumdrhijazi.de/",
-  "name": "Schnell Test Zahnzentrum Dr. Hijazi",
+  "name": "SchnellTestZahnzentrumDrHijazi",
   "version": "0.1.0",
   "private": true,
   "author": "Zakaria Moslim",
   "dependencies": {
+    "@emotion/react": "^11.7.0",
+    "@emotion/styled": "^11.6.0",
+    "@material-ui/core": "^4.12.3",
+    "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.2",
+    "bootstrap": "^5.1.3",
     "deploy": "^1.0.3",
     "gh-pages": "^3.2.3",
     "qrcode": "^1.5.0",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.0.3",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
+    "react-scripts": "^4.0.3",
+    "web-vitals": "^1.0.1",
+    "yarn": "^1.22.17"
   },
   "scripts": {
     "predeploy": "npm run build",
