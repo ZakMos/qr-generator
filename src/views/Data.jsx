@@ -2,6 +2,7 @@ import * as React from 'react';
 import QRCode from "qrcode";
 import { Card, TextField } from '@material-ui/core';
 import { useState } from "react";
+import emailjs from 'emailjs-com';
 
 const Data = () => {
     const [firstName, setFirstName] = useState('');
@@ -19,8 +20,20 @@ const Data = () => {
 
     const [imageUrl, setImageUrl] = useState('');
     
-    const generateQrCode = async(e) => {
-        e.preventDefault();
+
+    function sendEmail(e) {
+      e.preventDefault();
+      emailjs.sendForm(
+        "service_rylbquv", 
+        "template_48mqenw",
+        e.target, 
+      "user_aZ6qRbMy04RIcUNa7P0d7"
+      ).then(res => {
+        console.log(res);
+      }).catch(err => console.log(err));
+    }
+
+    const generateQrCode = async() => {
         try{
             const response = await QRCode.toDataURL(
               "Vorname*: \n" + (firstName) + '\n'
@@ -42,6 +55,7 @@ const Data = () => {
             console.log(error);
         }
     } 
+
     return(
         <>
         <div className="mt-5 mb-5"></div>
@@ -50,7 +64,7 @@ const Data = () => {
         </Card>
         <div className="mt-5 mb-5"></div>
         <Card>
-        <form onSubmit={generateQrCode} className="p-5">
+        <form onSubmit={sendEmail} className="p-5">
           <div>
           <label htmlFor="gender">Geschlecht:</label>
             <select  
@@ -71,6 +85,7 @@ const Data = () => {
               type="text"
               helperText="Bitte geben Sie Ihren Vornamen ein"
               id="firstName"
+              name="fname"
               label="Vorname"
               onChange={(e) => setFirstName(e.target.value)} required/>
           </div>
@@ -79,6 +94,7 @@ const Data = () => {
               type="text" 
               helperText="Bitte geben Sie ihren Nachnamen ein"
               id="lastName"
+              name="lname"
               label="Nachname"
               onChange={(e) => setLastName(e.target.value)} required/>
           </div>
@@ -88,12 +104,14 @@ const Data = () => {
               helperText="Straße"
               id="inputAddress"
               label="Straße"
+              name="address"
               onChange={(e) => setAddress(e.target.value)} required/>
               <TextField
               type="number" 
               className="ms-3"
               helperText="Hausnummer"
               id="inputHausNo"
+              name="hnummber"
               label="Hausnummer"
               onChange={(e) => setHausNo(e.target.value)} required/>
           </div>
@@ -102,6 +120,7 @@ const Data = () => {
               type="number" 
               helperText="PLZ"
               id="inputPlz"
+              name="plz"
               label="Plz"
               onChange={(e) => setPlz(e.target.value)} required/>
               <TextField
@@ -109,6 +128,7 @@ const Data = () => {
               className="ms-3"
               helperText="Ort"
               id="inputCity"
+              name="city"
               label="Ort"
               onChange={(e) => setCity(e.target.value)} required/>
           </div>
@@ -117,6 +137,7 @@ const Data = () => {
               type="text"
               helperText="Land"
               id="inputCountry"
+              name="city"
               label="Land"
               onChange={(e) => setCountry(e.target.value)} required/>
           </div>
@@ -125,6 +146,7 @@ const Data = () => {
               type="date" 
               helperText="Geburtsdatum"
               id="inputBirth"
+              name="birthday"
               onChange={(e) => setBirth(e.target.value)} required/>
           </div>
           <div>
@@ -133,6 +155,7 @@ const Data = () => {
               helperText="Handy Nr."
               id="inputHandyNr"
               label="Handy Nr."
+              name="mobile"
               onChange={(e) => setMobile(e.target.value)} required/>
           </div>
           <div>
@@ -140,6 +163,7 @@ const Data = () => {
               type="email" 
               helperText="E-Mail"
               id="inputEMail"
+              name="email"
               label="E-Mail"
               onChange={(e) => setEmail(e.target.value)} required/>
           </div>
@@ -148,17 +172,18 @@ const Data = () => {
               type="number" 
               helperText="Ausweisnummer"
               id="inputID"
+              name="idnummber"
               label="Ausweisnummer"
               onChange={(e) => setIdNo(e.target.value)} required/>
           </div>
-          <div>
+          <button onClick={() => generateQrCode()} className="btn btn-primary me-2 mt-2">Submit</button>
+          <input className="btn btn-secondary mt-2" type="reset"/>  
+        </form>
+        <div>
               {imageUrl 
               ? (<img src={imageUrl} alt="qrcode" />) 
               : null}
           </div>
-          <button className="btn btn-primary me-2 mt-2">Submit</button>
-          <input className="btn btn-secondary mt-2" type="reset"/>  
-        </form>
         </Card>
         </>
     )
