@@ -1,36 +1,24 @@
-import * as React from 'react';
-import { AppBar, Box, Toolbar, Typography, IconButton, Button } from '@material-ui/core';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Navbar, Container } from "react-bootstrap";
+import logo from "../img/logoS01.jpg";
+const Header = (props) => {
 
-
-
-export default class Header extends React.Component {
-    render() {
-        return (
-            <>
-            <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static">
-                    <Toolbar>
-                    <IconButton
-                        size="medium"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    Schnelltest Zahnzentrum Dr. Hijazi
-                    </Typography>
-                    <Button color="inherit">Zahnzentrum</Button>
-                    </Toolbar>
-                </AppBar>
-            </Box>
-            </>
-        )
-    }
+  return (
+    <>
+    <Navbar>
+    <Container>
+        <Navbar.Brand href="#home">Schnelltest Zahnzentrum Dr. Hijazi</Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text>
+            Zahnzentrum Dr.Hijazi <a href="https://zahnzentrumdrhijazi.de/" target="_blank" rel="noreferrer" >
+                <img src={logo} alt="DrHijaziLogo" width="100" height="100" />
+            </a>
+        </Navbar.Text>
+        </Navbar.Collapse>
+    </Container>
+    </Navbar>
+    </>
+  );
 }
 
-
- 
+export default Header;
