@@ -1,22 +1,34 @@
-import { Navbar, Container } from "react-bootstrap";
+import { useState } from 'react';
 import logo from "../img/logoS01.jpg";
+import { Reorder } from "@mui/icons-material"
 const Header = (props) => {
 
+  const [showLinks, setShowLinks] = useState(false);
   return (
     <>
-    <Navbar>
-    <Container>
-        <Navbar.Brand href="#home">Schnelltest Zahnzentrum Dr. Hijazi</Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text>
-            Zahnzentrum Dr.Hijazi <a href="https://zahnzentrumdrhijazi.de/" target="_blank" rel="noreferrer" >
-                <img src={logo} alt="DrHijaziLogo" width="100" height="100" />
-            </a>
-        </Navbar.Text>
-        </Navbar.Collapse>
-    </Container>
-    </Navbar>
+    <div className="navbar mb-5">
+      <div className="navLeftSide">
+        <div className="navLinks" id={showLinks ? "hidden" : ""}>
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/imppressum">Impressum</a>
+        </div>
+          <button onClick={() => setShowLinks(!showLinks)}>
+            {" "}
+        <Reorder />
+          </button>
+      </div>
+      <div className="navRightSide">
+         <a href="https://zahnzentrumdrhijazi.de/" 
+          target="_blank" 
+          rel="noreferrer" >
+            <img id="logo" 
+                src={logo} 
+                alt="DrHijaziLogo" 
+            />
+        </a>
+      </div>
+    </div>
     </>
   );
 }
