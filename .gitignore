@@ -5,7 +5,8 @@
 /.pnp
 .pnp.js
 /.vscode/*
-
+/src/views/test.jsx
+.env
 # testing
 /coverage
 
