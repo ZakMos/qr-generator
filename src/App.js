@@ -1,5 +1,5 @@
+import './App.css'
 import Data from './views/Data';
-import { Container } from '@material-ui/core';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -7,11 +7,11 @@ const App = () => {
  
   return (
     <>
-    <Container>
+    <div className="App">
       <Header />
-      <Data />
-      <Footer /> 
-    </Container>
+        <Data />
+      <Footer />
+    </div>
     </>
     );
 };

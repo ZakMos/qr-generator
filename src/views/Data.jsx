@@ -1,10 +1,13 @@
+import '../App.css';
 import * as React from 'react';
 import QRCode from "qrcode";
 import { Card, TextField } from '@material-ui/core';
 import { useState } from "react";
 import emailjs from 'emailjs-com';
+// import moment from 'moment';
 
 const Data = () => {
+  
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [sex, setSex] = useState('');
@@ -20,20 +23,25 @@ const Data = () => {
 
     const [imageUrl, setImageUrl] = useState('');
     
-
+    // const today = moment();
+    // const disableFutureDt = current => {
+    //   return current.isBefore(today)
+    // }
+const { REACT_APP_SERVICE, REACT_APP_TEMPLATE, REACT_APP_USER} = process.env;
     function sendEmail(e) {
       e.preventDefault();
       emailjs.sendForm(
-        "service_rylbquv", 
-        "template_48mqenw",
+        `${REACT_APP_SERVICE}`, 
+        `${REACT_APP_TEMPLATE}`,
         e.target, 
-      "user_aZ6qRbMy04RIcUNa7P0d7"
+        `${REACT_APP_USER}`
       ).then(res => {
         console.log(res);
       }).catch(err => console.log(err));
     }
 
     const generateQrCode = async() => {
+      // e.target.reset();
         try{
             const response = await QRCode.toDataURL(
               "Vorname*: \n" + (firstName) + '\n'
@@ -54,23 +62,21 @@ const Data = () => {
         } catch(error) {
             console.log(error);
         }
-    } 
-
+    };
     return(
         <>
-        <div className="mt-5 mb-5"></div>
-        <Card>
-            <h1> COVID Test </h1>
-        </Card>
-        <div className="mt-5 mb-5"></div>
-        <Card>
-        <form onSubmit={sendEmail} className="p-5">
-          <div>
-          <label htmlFor="gender">Geschlecht:</label>
+        <div className="card-header mt-5">
+          <h1>Schnelltest Zahnzentrum Dr. Hijazi</h1>
+          <h1 className="ms-5 mt-5 mb-5"> COVID Test </h1>
+        </div>
+        <Card className="container mb-5 card-form">
+        <form className="form-base" onSubmit={sendEmail}>
+          <div >
+          <label className="genderLabel" htmlFor="gender">Geschlecht:</label>
             <select  
               name="gender" 
               id="gender" 
-              className="form-select form-select-lg mb-3" 
+              className="form-select formSelect form-select-lg" 
               aria-label="gender"
               onChange={(e) => setSex(e.target.value)} 
               required>
@@ -91,7 +97,7 @@ const Data = () => {
           </div>
           <div>
           <TextField
-              type="text" 
+              type="text"
               helperText="Bitte geben Sie ihren Nachnamen ein"
               id="lastName"
               name="lname"
@@ -101,6 +107,7 @@ const Data = () => {
           <div>
           <TextField
               type="text" 
+              className="me-3"
               helperText="Straße"
               id="inputAddress"
               label="Straße"
@@ -108,7 +115,6 @@ const Data = () => {
               onChange={(e) => setAddress(e.target.value)} required/>
               <TextField
               type="number" 
-              className="ms-3"
               helperText="Hausnummer"
               id="inputHausNo"
               name="hnummber"
@@ -118,6 +124,7 @@ const Data = () => {
           <div>
           <TextField
               type="number" 
+              className="me-3"
               helperText="PLZ"
               id="inputPlz"
               name="plz"
@@ -125,7 +132,6 @@ const Data = () => {
               onChange={(e) => setPlz(e.target.value)} required/>
               <TextField
               type="text" 
-              className="ms-3"
               helperText="Ort"
               id="inputCity"
               name="city"
@@ -146,12 +152,14 @@ const Data = () => {
               type="date" 
               helperText="Geburtsdatum"
               id="inputBirth"
-              name="birthday"
-              onChange={(e) => setBirth(e.target.value)} required/>
+              name="dob"
+              onChange={(e) => setBirth(e.target.value)} 
+              required/>
           </div>
           <div>
           <TextField 
               type="number"
+              min="0"
               helperText="Handy Nr."
               id="inputHandyNr"
               label="Handy Nr."
@@ -169,19 +177,33 @@ const Data = () => {
           </div>
           <div>
           <TextField
-              type="number" 
+              type="text" 
               helperText="Ausweisnummer"
               id="inputID"
               name="idnummber"
               label="Ausweisnummer"
               onChange={(e) => setIdNo(e.target.value)} required/>
           </div>
-          <button onClick={() => generateQrCode()} className="btn btn-primary me-2 mt-2">Submit</button>
-          <input className="btn btn-secondary mt-2" type="reset"/>  
+          <div>
+            <button className="btn btn-primary me-2 mt-2" type="submit" 
+            onClick={() => generateQrCode()}
+            >Submit</button>
+            <input className="btn btn-secondary mt-2" type="reset"/>  
+          </div>
+          <p className="h5 pflichtfeld mt-4">* Pflichtfeld</p>
         </form>
         <div>
               {imageUrl 
-              ? (<img src={imageUrl} alt="qrcode" />) 
+              ? (
+                  <>
+                  <div>
+                    <h3>Dankeschön</h3>
+                  </div>
+                  <div>
+                    <img src={imageUrl} alt="qrcode" />
+                  </div>
+                  </>
+                ) 
               : null}
           </div>
         </Card>
@@ -190,5 +212,3 @@ const Data = () => {
 };
 
 export default Data;
-
-
