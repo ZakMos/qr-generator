@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import logo from "../img/logoS01.jpg";
-import { Reorder } from "@mui/icons-material"
+import { Reorder, Home } from "@mui/icons-material"
 const Header = (props) => {
 
   const [showLinks, setShowLinks] = useState(false);
@@ -9,13 +9,12 @@ const Header = (props) => {
     <div className="navbar mb-5">
       <div className="navLeftSide">
         <div className="navLinks" id={showLinks ? "hidden" : ""}>
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/imppressum">Impressum</a>
+          <a href="/"><Home/></a>
+          <a href="/impressum">Impressum</a>
         </div>
           <button onClick={() => setShowLinks(!showLinks)}>
             {" "}
-        <Reorder />
+            <Reorder />
           </button>
       </div>
       <div className="navRightSide">
